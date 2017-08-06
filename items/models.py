@@ -44,7 +44,7 @@ class ItemCode(TimeHandlerModel):
 
 class Item(StatusDeletedModel, TimeHandlerModel):
     name = models.CharField(max_length=255)
-    type = models.ForeignKey(ItemType, related_name="types", db_column="type")
+    types = models.ForeignKey(ItemType, related_name="types", db_column="type")
     quantity = models.IntegerField(default=1)
     description = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
