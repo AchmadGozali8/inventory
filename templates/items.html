@@ -34,6 +34,7 @@
 											<th>Desc</th>
 											<th>Item Location</th>
 											<th>Quantity</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -45,6 +46,10 @@
 												<td>{{item.description}}</td>
 												<td>{{item.location}}</td>
 												<td>{{item.quantity}}</td>
+												<td>
+													<button><a href="/inventry/update/{{item.id}}">Update</a></button>
+													<button><a href="/inventry/delete/{{item.id}}">Deleted</a></button>
+												</td>
 											</tr>
 										{% endfor %}
 									</tbody>
@@ -56,6 +61,7 @@
 											<th>Desc</th>
 											<th>Item Location</th>
 											<th>Quantity</th>
+											<th>Action</th>
 										</tr>
 									</tfoot>
 								</table>
