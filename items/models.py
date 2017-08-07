@@ -28,6 +28,9 @@ class ItemType(TimeHandlerModel):
             self.updated_at = timezone.now()
         super(ItemType, self).save(*args, **kwargs)
 
+    def __str__(self, *args, **kwargs):
+        return "{}".format(self.name)
+
 class ItemCode(TimeHandlerModel):
     name = models.CharField(max_length=255)
     type = models.ForeignKey(ItemType, db_column="type")
@@ -44,7 +47,7 @@ class ItemCode(TimeHandlerModel):
 
 class Item(StatusDeletedModel, TimeHandlerModel):
     name = models.CharField(max_length=255)
-    types = models.ForeignKey(ItemType, related_name="types", db_column="type")
+    types = models.ForeignKey(ItemType, related_name="type_name", db_column='type')
     quantity = models.IntegerField(default=1)
     description = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
