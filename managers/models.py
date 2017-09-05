@@ -15,7 +15,7 @@ class StatusManager(models.Manager):
 
 class StatusDeletedModel(models.Model):
     status = StatusManager()
-
+    objects = models.Manager()
     class Meta:
        abstract = True
 

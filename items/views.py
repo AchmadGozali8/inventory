@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from models import Item
 from django.http import HttpResponseRedirect
-from form import ItemForm, ItemUpdateForm
+from forms.item_form import ItemForm, ItemUpdateForm
 # Create your views here.
 
 def item(request):
@@ -14,11 +14,20 @@ def item(request):
     }
     return render(request, 'items.html', context)
 
+def code_item(item_type):
+    count = Item.objects.filter(types__exact=item_type).count()
+    count = count + 1
+    item_type = str(item_type)
+    string_slice = item_type[0:3]
+    concatenate = "{}{}".format(string_slice,count)
+    return concatenate
+
 def add_item(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
+            instance.code = code_item(instance.types)
             instance.save()
             return HttpResponseRedirect('/inventory/')
     else:
