@@ -8,7 +8,7 @@ from forms.item_form import ItemForm, ItemUpdateForm
 # Create your views here.
 
 def item(request):
-    items = Item.status.all()
+    items = Item.status.all().order_by('-created_at')
     context = {
         'items':items
     }
