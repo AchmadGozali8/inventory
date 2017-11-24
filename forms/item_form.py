@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from django.forms import ModelForm, TextInput, Textarea, Select 
 from items.models import Item
 
@@ -6,7 +7,11 @@ text_input = TextInput(attrs={'class': 'form-control', 'type': 'text'})
 class ItemForm(ModelForm):
     class Meta:
         model = Item
-        fields = ('name', 'types', 'quantity', 'description', 'location')
+        fields = ('name', 'types', 'quantity', 'location', 'description')
+        labels = {
+            'name': 'Item Name',
+            'types': 'Type',
+        }
         widgets = {
             'name': text_input,
             'types': Select(attrs={'class': 'form-control show-tick'}),

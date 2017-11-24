@@ -8,10 +8,11 @@ from forms.item_form import ItemForm, ItemUpdateForm
 # Create your views here.
 
 def item(request):
-    items = Item.status.all().order_by('-created_at')
+    items = Item.status.all()
     context = {
         'items':items
     }
+    request.session['item_count'] = items.count()
     return render(request, 'items.html', context)
 
 def code_item(item_type):
