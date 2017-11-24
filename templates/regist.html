@@ -1,0 +1,78 @@
+{%extends "head.html"%}
+{%block title%} Register {%endblock%}
+{% set classRegist='register-page' %}
+{% block body %}
+<div class="register-box">
+  <div class="register-logo">
+    <a href="/"><b>Inventory</b>Admin</a>
+  </div>
+
+  <div class="register-box-body">
+    <p class="login-box-msg">Create new account</p>
+    <form action="{{url_for('user.regist')}}" method="post">
+      <div class="form-group has-feedback{%if f.username.errors %} has-error{%endif%}">
+        <input type="text" value="{%if f.username.data%}{{f.username.data}}{%endif%}" class="form-control" placeholder="{{f.username.label.text}}" name="{{f.username.id}}">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        {% if f.username.errors %}
+          <span class="help-text">
+          {% for error in f.username.errors %}
+            <p>{{error}}</p>
+          {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+      <div class="form-group has-feedback{%if f.email.errors %} has-error{%endif%}">
+        <input type="email" value="{%if f.email.data%}{{f.email.data}}{%endif%}" class="form-control" placeholder="{{f.email.label.text}}" name="{{f.email.id}}">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        {% if f.email.errors %}
+          <span class="help-text">
+          {% for error in f.email.errors %}
+            <p>{{error}}</p>
+          {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+      <div class="form-group" id="{{f.perusahaan_id.label.text}}">
+              {{f.perusahaan_id(class="form-control select2")}}
+      </div>
+      <div class="form-group" id="{{f.departement_id.label.text}}">
+              {{f.departement_id(class="form-control select2")}}
+      </div>
+      <div class="form-group" id="{{f.user_role.label.text}}">
+              {{f.user_role(class="form-control select2")}}
+      </div>
+      <div class="form-group has-feedback{%if f.password.errors %} has-error{%endif%}">
+        <input type="password" value="{%if f.password.data%}{{f.password.data}}{%endif%}" class="form-control" placeholder="{{f.password.label.text}}" name="{{f.password.id}}">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        {% if f.password.errors %}
+          <span class="help-text">
+          {% for error in f.password.errors %}
+            <p>{{error}}</p>
+          {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+      <div class="form-group has-feedback{%if f.confirm.errors %} has-error{%endif%}">
+        <input type="password" value="{%if f.confirm.data%}{{f.confirm.data}}{%endif%}" class="form-control" placeholder="{{f.confirm.label.text}}" name="{{f.confirm.id}}">
+        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        {% if f.confirm.errors %}
+          <span class="help-text">
+          {% for error in f.confirm.errors %}
+            <p>{{error}}</p>
+          {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+
+      <div class="row">
+        <div class="col-xs-8">
+            <a type="button" class="btn btn-danger" style="float:left; margin-right:6px;" href="{{url_for('core.dashboard')}}">Cancel</a>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </form>
+ <!--    <a href="{{url_for('user.user_login')}}" class="text-center">I already have a account</a> -->
+  </div>
+</div>
+
+{%endblock%}
