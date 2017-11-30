@@ -37,22 +37,13 @@ class Company(StatusDeletedModel, TimeHandlerModel):
                                    db_column="department")
     deleted = models.IntegerField(choices=DELETED_STATUS, default=NOT_DELETED)
 
-    class Meta:
-        db_table = "comp"
-
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Company.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.companies.save()
-
     def save(self, *args, **kwargs):
         if self.created_at is None:
             self.created_at = timezone.now()
         else:
             self.updated_at = timezone.now()
         super(Company, self).save(*args, **kwargs)
+
+    class Meta:
+        db_table = "companies"
 

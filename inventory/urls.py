@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+
 from items import urls as url_items
+from users.views import logout_view as logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^inventory/', include(url_items.urlpatterns)),
+    url(r'^login/', auth_views.login, {'template_name': 'login.html'}, name="login"),
+    url(r'^logout/', logout, name="logout")
 ]

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from models import Item
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from forms.item_form import ItemForm, ItemUpdateForm
-# Create your views here.
 
+@login_required
 def item(request):
     items = Item.status.all()
     context = {
@@ -23,6 +24,7 @@ def code_item(item_type):
     concatenate = "{}{}".format(string_slice,count)
     return concatenate
 
+@login_required
 def add_item(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
@@ -39,6 +41,7 @@ def add_item(request):
 
     return render(request, 'items_form.html', context)
 
+@login_required
 def update_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
     if request.method == "POST":
@@ -51,7 +54,7 @@ def update_item(request, pk):
         form.fields['name'].widget.attrs['placeholder'] = item.name
         form.fields['types'].widget.attrs['placeholder'] = item.types
         form.fields['description'].widget.attrs['placeholder'] = item.description
-        form.fields['location'].widget.attrs['placeholder'] = item.location 
+        form.fields['location'].widget.attrs['placeholder'] = item.location
         context = {
             "form": form,
             "pk": pk,
@@ -59,6 +62,7 @@ def update_item(request, pk):
 
     return render(request, 'items_update.html', context)
 
+@login_required
 def delete_item(request, pk):
     deleted = 1
     not_deleted = 0
